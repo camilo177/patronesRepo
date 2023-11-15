@@ -5,21 +5,17 @@ import java.math.BigDecimal;
 public class Cuenta {
     private static int cuentaCounter = 1000;
     private int numeroCuenta;
-    private String persona;
+    private Client cliente;
     private BigDecimal saldo;
 
-    public Cuenta(String persona, BigDecimal saldo) {
+    public Cuenta(Client cliente, BigDecimal saldo) {
         this.numeroCuenta = ++cuentaCounter;
-        this.persona = persona;
+        this.cliente = cliente;
         this.saldo = saldo;
     }
 
-    public int getNumeroCuenta() {
-        return numeroCuenta;
-    }
-
     public String getPersona() {
-        return persona;
+        return cliente.getName(); // Use the client's name as persona
     }
 
     public BigDecimal getSaldo() {

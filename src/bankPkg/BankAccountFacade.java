@@ -11,27 +11,28 @@ public class BankAccountFacade {
         this.banco = banco;
     }
 
-    public void createAccount(int accountNumber, String accountHolder) {
-        Cuenta cuenta = new Cuenta(accountHolder, BigDecimal.ZERO);
+    public void createAccount(String name, String address, String email, BigDecimal saldo) {
+        Client cliente = new Client(name, address, email);
+        Cuenta cuenta = new Cuenta(cliente, saldo);
         banco.anadirCuenta(cuenta);
-        System.out.println("Cuenta creada con éxito para " + accountHolder + ". Saldo inicial: " + cuenta.getSaldo());
+        System.out.println("Cuenta creada con éxito para " + cliente.getName() + ". Saldo inicial: " + cuenta.getSaldo());
     }
 
-    public void deposit(int accountNumber, double amount) {
+    public void deposit(int accountNumber, BigDecimal amount) {
         Cuenta cuenta = findCuentaByAccountNumber(accountNumber);
         if (cuenta != null) {
-            cuenta.credito(BigDecimal.valueOf(amount));
+            cuenta.credito(amount);
             System.out.println("Depósito exitoso. Nuevo saldo de " + cuenta.getPersona() + ": " + cuenta.getSaldo());
         } else {
             System.out.println("Cuenta no encontrada.");
         }
     }
 
-    public void withdraw(int accountNumber, double amount) {
+    public void withdraw(int accountNumber, BigDecimal amount) {
         Cuenta cuenta = findCuentaByAccountNumber(accountNumber);
         if (cuenta != null) {
             try {
-                cuenta.debito(BigDecimal.valueOf(amount));
+                cuenta.debito(amount);
                 System.out.println("Retiro exitoso. Nuevo saldo de " + cuenta.getPersona() + ": " + cuenta.getSaldo());
             } catch (DineroInsuficienteException e) {
                 System.out.println(e.getMessage());

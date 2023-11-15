@@ -1,7 +1,6 @@
 package bankPkg;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -21,14 +20,22 @@ public class Main {
 
             switch (choice) {
                 case 1: {
-                    System.out.print("Ingrese el número de cuenta: ");
-                    int accountNumber = scanner.nextInt();
+                    System.out.print("Ingrese el nombre del titular de la cuenta: ");
+                    String accountHolderName = scanner.nextLine();
+
+                    System.out.print("Ingrese la dirección del titular de la cuenta: ");
+                    String accountHolderAddress = scanner.nextLine();
+
+                    System.out.print("Ingrese el correo electrónico del titular de la cuenta: ");
+                    String accountHolderEmail = scanner.nextLine();
+
+                    Client accountHolder = new Client(accountHolderName, accountHolderAddress, accountHolderEmail);
+
+                    System.out.print("Ingrese la cantidad inicial: ");
+                    BigDecimal initialBalance = scanner.nextBigDecimal();
                     scanner.nextLine(); // Consume the newline character
 
-                    System.out.print("Ingrese el nombre del titular de la cuenta: ");
-                    String accountHolder = scanner.nextLine();
-
-                    bankAccountFacade.createAccount(accountNumber, accountHolder);
+                    bankAccountFacade.createAccount(accountHolder, initialBalance);
                     break;
                 }
                 case 2: {
@@ -37,7 +44,7 @@ public class Main {
                     scanner.nextLine(); // Consume the newline character
 
                     System.out.print("Ingrese la cantidad para el depósito: ");
-                    double depositAmount = scanner.nextDouble();
+                    BigDecimal depositAmount = scanner.nextBigDecimal();
                     scanner.nextLine(); // Consume the newline character
 
                     bankAccountFacade.deposit(accountNumber, depositAmount);
@@ -49,7 +56,7 @@ public class Main {
                     scanner.nextLine(); // Consume the newline character
 
                     System.out.print("Ingrese la cantidad para el retiro: ");
-                    double withdrawAmount = scanner.nextDouble();
+                    BigDecimal withdrawAmount = scanner.nextBigDecimal();
                     scanner.nextLine(); // Consume the newline character
 
                     bankAccountFacade.withdraw(accountNumber, withdrawAmount);
