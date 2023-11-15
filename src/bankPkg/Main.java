@@ -1,10 +1,13 @@
 package bankPkg;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        BankAccountFacade bankAccountFacade = new BankAccountFacade("MiBanco");
+        Banco banco = new Banco();
+        BankAccountFacade bankAccountFacade = new BankAccountFacade("MiBanco", banco);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -87,4 +90,3 @@ public class Main {
         System.out.print("Ingrese su elección: ");
     }
 }
-

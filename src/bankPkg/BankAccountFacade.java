@@ -1,21 +1,19 @@
 package bankPkg;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BankAccountFacade {
     private String bankName;
-    private Map<Integer, Cuenta> cuentas;
+    private Banco banco;
 
-    public BankAccountFacade(String bankName) {
+    public BankAccountFacade(String bankName, Banco banco) {
         this.bankName = bankName;
-        this.cuentas = new HashMap<>();
+        this.banco = banco;
     }
 
     public void createAccount(int accountNumber, String accountHolder) {
         Cuenta cuenta = new Cuenta(accountHolder, BigDecimal.ZERO);
-        cuentas.put(accountNumber, cuenta);
+        banco.anadirCuenta(cuenta);
         System.out.println("Cuenta creada con éxito para " + accountHolder + ". Saldo inicial: " + cuenta.getSaldo());
     }
 
@@ -58,6 +56,11 @@ public class BankAccountFacade {
     }
 
     private Cuenta findCuentaByAccountNumber(int accountNumber) {
-        return cuentas.get(accountNumber);
+        for (Cuenta cuenta : banco.getCuentas()) {
+            if (cuenta.getNumeroCuenta() == accountNumber) {
+                return cuenta;
+            }
+        }
+        return null;
     }
 }

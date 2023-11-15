@@ -3,12 +3,19 @@ package bankPkg;
 import java.math.BigDecimal;
 
 public class Cuenta {
+    private static int cuentaCounter = 1000;
+    private int numeroCuenta;
     private String persona;
     private BigDecimal saldo;
 
     public Cuenta(String persona, BigDecimal saldo) {
+        this.numeroCuenta = ++cuentaCounter;
         this.persona = persona;
         this.saldo = saldo;
+    }
+
+    public int getNumeroCuenta() {
+        return numeroCuenta;
     }
 
     public String getPersona() {
